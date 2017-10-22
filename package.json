@@ -1,0 +1,21 @@
+{
+  "name": "app-todo",
+  "version": "1.0.0",
+  "description": "no",
+  "main": "index.js",
+  "scripts": {
+    "start": "gulp"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "animate.css": "^3.5.2",
+    "gulp": "^3.9.1",
+    "jquery": "^3.2.1",
+    "normalize.css": "^7.0.0",
+    "store": "^2.0.12"
+  },
+  "devDependencies": {
+    "jquery-datetimepicker": "^2.5.11"
+  }
+}

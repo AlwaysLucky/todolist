@@ -1,0 +1,141 @@
+*{
+	box-sizing: border-box;
+	-webkit-transition: all .1s;
+	transition: all .1s;
+	outline: 0;
+} 
+body{
+	background: #00484b;
+}
+.container{
+	max-width: 700px;
+	margin: 0 auto;
+	color: #fff;
+}
+
+h1{
+	text-align: center;
+}
+
+.task-list{
+	margin: 10px 0;
+}
+input,.task-item,button,.task-detail-mask{
+	border-radius: 3px;
+	padding: 10px;
+}
+
+input[type=text],input[type=date],textarea{
+	border: 0;
+	padding: 10px;
+	display: inline-block;
+	width: calc(100% - 16%);
+	margin-right: 1%;
+	-webkit-box-shadow: inset 0 1px 4px rgba(0,0,0,.2);
+			box-shadow: inset 0 1px 4px rgba(0,0,0,.2);
+}
+textarea{
+	width: 100%;
+	height: 100px;
+	resize: none
+}
+button{
+	border:0;
+	display: inline-block;
+	background: #46b1e4;
+	cursor: pointer
+}
+.action{
+	margin: 0 10px;
+	padding: 8px 10px;
+	font-size: 90%
+}
+.task-add button,.remaind button{
+	width: 15%;
+	min-width: 40px
+}
+.remaind button {
+	padding: 10px 0;
+}
+.task-add button:hover{
+	background: #308bb7
+}
+
+.task-item{
+	background: #fff;
+	color: #333;
+	margin-bottom: 2px;
+	box-shadow: 0 2px 5px rgba(0,0,0,.4);
+	cursor: pointer;
+	overflow: auto;
+	line-height: 36px; /*文字垂直居中 根据自己实际行高决定*/
+}
+.task-item .content{
+	margin: 0 10px;
+}
+
+.task-item div{
+	display: inline-block;
+	max-width: 100%;
+	float: right;
+}
+
+.task-item:hover{
+	background: #ddd;
+}
+.task-detail-mask,.task-detail{
+	position: fixed;
+}
+.task-detail{
+	width: 50%;
+	background: #fff;
+	padding: 10px;
+	color: #333;
+
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+}
+.task-detail > *{
+	margin-bottom: 10px;
+}
+.task-detail-mask{
+	left: 0;right: 0;top: 0;bottom: 0;
+	background: rgba(30,30,30,.5);
+	display: none;
+}
+
+.task-mind-mask{
+	background: orange;
+	padding: 10px;
+	text-align: center;
+	font-weight: bold;
+	font-size: 20px;
+	color: #fff
+}
+.task-mind-mask button{
+	padding: 6px 12px;
+	margin-left: 10px
+}
+
+/*移动端简单适配*/
+
+@media screen and (max-width: 450px) {
+	.container{
+		padding: 0 10px;
+	}
+	input,.task-item,button,.task-detail-mask{
+		padding: 10px 0;
+	}
+	input[type=checkbox]{
+		margin-left: 10px
+	}
+	.task-detail{
+		width: 90%
+	}
+	.task-item{
+		-webkit-appearance:none;
+		-webkit-tap-highlight-color:rgba(0,0,0,0);
+				tap-highlight-color:rgba(0,0,0,0);
+	}
+}
