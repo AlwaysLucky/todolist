@@ -26,7 +26,7 @@
 	}
 
 	function init(){
-		task_list = store.get('task_list') || [];
+		task_list = store.get('task_list') || [{"content":"曾经沧海难为水","desc":"曾经沧海难为水 除却巫山不是云\n有情谁信道无缘 无缘却见梦中人","date":"2017/10/28 13:38"}];
 		if (task_list.length) {
 			renderList(task_list);
 		}
