@@ -7,8 +7,10 @@
 ## 安装
 可以直接Download ZIP 或者 使用 git clone https://github.com/AlwaysLucky/todolist.git
 
-执行 cd todolist
-执行 npm install
+执行 cd todolist  
+
+执行 npm install  
+
 执行 npm start
 
 ## 功能
@@ -20,7 +22,7 @@
     添加时间不可小于当前时间 当当时间大于设定时间时 播放音乐
 
 ## 异同
-####在实现上多少与课程中有些差别:
+#### 在实现上多少与课程中有些差别:
 * 页面布局略有不同 如果这个布局都有困难的话 建议多巩固一下基础吧
 * 输入框添加任务的时候enter触发
 * 点击详情修改标题(通过HTML5的contenteditable实现)
