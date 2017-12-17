@@ -13,6 +13,10 @@
 
 执行 npm start
 
+## 演示
+**访问:   ** [http://diaosi19.com/todolist](http://diaosi19.com/todolist)  
+![todolist](img/visit-todo.png)
+
 ## 功能
 添加任务可通过Enter 或 确定按钮触发  
 
