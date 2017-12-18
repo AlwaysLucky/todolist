@@ -46,10 +46,14 @@
 				_task_list.insertAdjacentHTML('beforeend',item);			
 			}
 		};
-		complete_item.forEach(function(e,index){
+// 		complete_item.forEach(function(e,index){
+// 			item = render_task_item(e,index);
+// 			_task_list.insertAdjacentHTML('beforeend',item);
+// 		}
+		Array.prototype.forEach.call(complete_item,function(e){
 			item = render_task_item(e,index);
 			_task_list.insertAdjacentHTML('beforeend',item);
-		})		
+		})
 
 		delete_task_trigger = document.querySelectorAll('.action.delete');
 		detail_task_trigger = document.querySelectorAll('.action.detail');
@@ -130,7 +134,16 @@
 	}
 
 	function delete_task_item(){
-		delete_task_trigger.forEach(function(e,index){
+// 		delete_task_trigger.forEach(function(e,index){
+// 			delete_task_trigger[index].onclick = function(){
+// 				var index = this.parentNode.parentNode.parentNode.getAttribute('data-id');
+// 				if (index === undefined || !task_list[index]) return;
+// 				var tmp = confirm('确定删除吗?');
+// 				tmp ? task_list.splice(index,1) : null;
+// 				reload_list();
+// 			}
+// 		})
+		Array.prototype.forEach.call(delete_task_trigger,function(e,index){
 			delete_task_trigger[index].onclick = function(){
 				var index = this.parentNode.parentNode.parentNode.getAttribute('data-id');
 				if (index === undefined || !task_list[index]) return;
@@ -142,7 +155,14 @@
 	}
 
 	function detail_task_item(){
-		detail_task_trigger.forEach(function(e,index){
+// 		detail_task_trigger.forEach(function(e,index){
+// 			detail_task_trigger[index].onclick = function(){
+// 				var index = this.parentNode.parentNode.parentNode.getAttribute('data-id');
+// 				if (index === undefined || !task_list[index]) return;
+// 				render_task_mask(index);
+// 			}
+// 		})
+		Array.prototype.forEach.call(detail_task_trigger,function(e,index){
 			detail_task_trigger[index].onclick = function(){
 				var index = this.parentNode.parentNode.parentNode.getAttribute('data-id');
 				if (index === undefined || !task_list[index]) return;
@@ -153,7 +173,15 @@
 	}
 
 	function listen_checkbox_complete(){
-		checkbox_complete.forEach(function(e,index){
+// 		checkbox_complete.forEach(function(e,index){
+// 			checkbox_complete[index].onclick = function(){
+// 				var index2 = this.parentNode.parentNode.getAttribute('data-id');
+// 				var is_complete = this.checked;
+// 				update_task_mask(index2,{complete: is_complete});
+// 			}
+// 		})
+		
+		Array.prototype.forEach.call(checkbox_complete,function(){
 			checkbox_complete[index].onclick = function(){
 				var index2 = this.parentNode.parentNode.getAttribute('data-id');
 				var is_complete = this.checked;
@@ -199,7 +227,14 @@
 		this.style.display = 'none';
 	})
 
-	task_item.forEach(function(e,index){
+// 	task_item.forEach(function(e,index){
+// 		task_item[index].addEventListener('dblclick',function(){
+// 			event.stopPropagation();
+// 			var index = this.getAttribute('data-id');
+// 			render_task_mask(index);
+// 		})
+// 	})
+	Array.prototype.forEach.call(task_item,function(){
 		task_item[index].addEventListener('dblclick',function(){
 			event.stopPropagation();
 			var index = this.getAttribute('data-id');
