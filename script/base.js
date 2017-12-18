@@ -181,7 +181,7 @@
 // 			}
 // 		})
 		
-		Array.prototype.forEach.call(checkbox_complete,function(){
+		Array.prototype.forEach.call(checkbox_complete,function(e,index){
 			checkbox_complete[index].onclick = function(){
 				var index2 = this.parentNode.parentNode.getAttribute('data-id');
 				var is_complete = this.checked;
@@ -234,7 +234,7 @@
 // 			render_task_mask(index);
 // 		})
 // 	})
-	Array.prototype.forEach.call(task_item,function(){
+	Array.prototype.forEach.call(task_item,function(e,index){
 		task_item[index].addEventListener('dblclick',function(){
 			event.stopPropagation();
 			var index = this.getAttribute('data-id');
