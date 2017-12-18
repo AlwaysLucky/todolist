@@ -50,7 +50,7 @@
 // 			item = render_task_item(e,index);
 // 			_task_list.insertAdjacentHTML('beforeend',item);
 // 		}
-		Array.prototype.forEach.call(complete_item,function(e){
+		Array.prototype.forEach.call(complete_item,function(e,index){
 			item = render_task_item(e,index);
 			_task_list.insertAdjacentHTML('beforeend',item);
 		})
