@@ -14,39 +14,33 @@
 
 <body>
     <!-- <div class="task-mind-mask">
-		<span>又要接单啦</span><button>确定</button>
-	</div> -->
+        <span>又要接单啦</span><button>确定</button>
+    </div> -->
     <div class="container">
         <h1>我的清单列表</h1>
         <div class="task-add">
-            <input type="text" name="content" placeholder="今天下午吃什么" autofocus="" complete="off"><button>确定</button>
+            <input type="text" name="content" placeholder="今天下午吃什么" autofocus="" complete="off">
+            <button>确定</button>
         </div>
-
-
-
         <div class="task-list">
-            <div class="task-item" data-id="1">
-            	<div>
-	            	<span><input type="checkbox" class="complete"></span><span class="content">test</span>
-            	</div>
-            	<div>
-	            	<span><button class="action delete">删除</button></span><span><button class="action detail">详情</button></span>
-            	</div>
+            <!-- <div class="task-item" data-id="1">
+                <div>
+                    <span><input type="checkbox" class="complete"></span><span class="content">test</span>
+                </div>
+                <div>
+                    <span><button class="action delete">删除</button></span><span><button class="action detail">详情</button></span>
+                </div>
             </div>
             <div class="task-item" data-id="0">
-            	
                 <div>
-                	<span><input type="checkbox" class="complete"></span><span class="content">曾经沧海难为水</span>
+                    <span><input type="checkbox" class="complete"></span><span class="content">曾经沧海难为水</span>
                 </div>
                 <div>
-	            	<span><button class="action delete">删除</button></span><span><button class="action detail">详情</button></span>
+                    <span><button class="action delete">删除</button></span><span><button class="action detail">详情</button></span>
                 </div>
-            </div>
+            </div> -->
         </div>
-
-
-
-        <!-- <div class="task-detail-mask">
+        <div class="task-detail-mask">
             <div class="task-detail">
                 <div class="content">
                     <h3 contenteditable="false">曾经沧海难为水</h3></div>
@@ -60,18 +54,8 @@
                     <button class="submit">提交</button>
                 </div>
             </div>
-        </div> -->
-
-
+        </div>
     </div>
-
-
-
-
-
-
-
-
     <audio src="http://music.163.com/song/media/outer/url?id=4989687.mp3" loop="true"></audio>
     <!-- <script src="./node_modules/jquery/dist/jquery.min.js"></script> -->
     <!-- <script src="./node_modules/store/dist/store.legacy.min.js"></script> -->
@@ -79,13 +63,14 @@
     <script src="./script/jquery.min.js"></script>
     <script src="./script/store.legacy.min.js"></script>
     <script src="script/jquery.datetimepicker.full.min.js"></script>
+    <script src="script/base-flex.js"></script>
     <!-- <script src="./script/base.js"></script> -->
     <!-- <script src="script/base-jquery.js"></script> -->
     <!-- <script>
-	    //enter 事件
-	    document.querySelector('.task-add input').addEventListener('keydown', function(e) {
-	        if (e.keyCode === 13) this.nextElementSibling.click();
-	    })
+        //enter 事件
+        document.querySelector('.task-add input').addEventListener('keydown', function(e) {
+            if (e.keyCode === 13) this.nextElementSibling.click();
+        })
     </script> -->
 </body>
 
