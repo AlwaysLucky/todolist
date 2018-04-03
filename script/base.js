@@ -214,7 +214,7 @@
 		var html = '<div class=task-mind-mask>'
 				 +		'<span>有任务?</span><button>确定</button>'
 				 +	'</div>' ;
-		document.body.insertAdjacentHTML('beforebegin',html);
+		document.body.insertAdjacentHTML('afterbegin',html);
 		var btn = document.querySelector('.task-mind-mask button');
 		btn.onclick = function(){
 			document.body.removeChild(btn.parentNode);
