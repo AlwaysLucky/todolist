@@ -161,7 +161,7 @@ button {
         margin-left: 10px
     }
     .task-detail {
-        width: 90%
+        width: 90% !important
     }
     .task-item {
         -webkit-appearance: none;
