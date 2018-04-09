@@ -27,16 +27,15 @@ input,
 .task-item,
 button,
 .task-detail-mask {
+    border: 0;
     border-radius: 3px;
     padding: 10px;
+    display: inline-block;
 }
 
 input[type=text],
 input[type=date],
 textarea {
-    border: 0;
-    padding: 10px;
-    display: inline-block;
     width: calc(100% - 16%);
     margin-right: 1%;
     -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, .2);
@@ -50,8 +49,6 @@ textarea {
 }
 
 button {
-    border: 0;
-    display: inline-block;
     background: #46b1e4;
     cursor: pointer
 }
@@ -65,7 +62,7 @@ button {
 .task-add button,
 .remaind button {
     width: 15%;
-    min-width: 40px
+    min-width: 44px
 }
 
 .remaind button {
@@ -77,6 +74,7 @@ button {
 }
 
 .task-item {
+    display: block;
     background: #fff;
     color: #333;
     margin-bottom: 2px;
