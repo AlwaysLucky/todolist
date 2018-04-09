@@ -1,3 +1,10 @@
+* {
+  -webkit-transition: all .1s;
+  box-sizing: border-box;
+  transition: all .1s;
+  outline: 0;
+}
+
 body {
   background: #00484b;
 }
@@ -41,7 +48,6 @@ button {
 
 .task-add button {
   width: 15%;
-  min-width: 44px;
 }
 .task-add button:hover {
   background: #308bb7;
@@ -76,6 +82,71 @@ button {
   margin: 0 10px;
   font-size: 90%;
   padding: 8px 10px;
+}
+
+.task-detail-mask {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(30, 30, 30, 0.5);
+  display: none;
+}
+.task-detail-mask .task-detail {
+  position: fixed;
+  width: 50%;
+  background: #fff;
+  padding: 10px 10px;
+  color: #333;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.task-detail-mask .task-detail > * {
+  margin-bottom: 10px;
+}
+
+.task-mind-mask {
+  background: orange;
+  padding: 10px 0;
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+  color: #fff;
+}
+.task-mind-mask button {
+  padding: 6px 12px;
+  margin-left: 10px;
+}
+
+.remaind button {
+  width: 15%;
+  padding: 10px 0;
+}
+
+@media screen and (max-width: 450px) {
+  .container {
+    padding: 0 10px;
+  }
+
+  input, .task-item, button, .task-detail-mask {
+    padding: 10px 0;
+  }
+
+  input[type=checkbox] {
+    margin-left: 10px;
+  }
+
+  .task-detail {
+    width: 90% !important;
+  }
+
+  .task-item {
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    tap-highlight-color: transparent;
+  }
 }
 
 /*# sourceMappingURL=base.css.map */
