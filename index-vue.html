@@ -1,0 +1,128 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>toDoList</title>
+    <link rel="stylesheet" href="./style/jquery.datetimepicker.min.css">
+    <link rel="stylesheet" href="./style/normalize.css">
+    <link rel="stylesheet" href="./style/base-flex.css">
+    <script src="script/vue.min.js"></script>
+</head>
+
+<body>
+    <!-- <div class="task-mind-mask">
+        <span>又要接单啦</span><button>确定</button>
+    </div> -->
+    <div class="container" id="app">
+        <h1><!-- 我的清单列表 --></h1>
+        <div class="task-add">
+            <input type="text" name="content" placeholder="中午吃什么" v-model="message" v-on:keyup.enter="sure" autofocus="" complete="off">
+            <button v-on:click.prevent="sure">确定</button>
+        </div>
+        <div class="task-list">
+            <div class="task-item" v-for="(item,index) in content":data-id="index">
+                <div>
+                    <span><input type="checkbox" class="complete"></span><span class="content">{{item.content}}</span>
+                </div>
+                <div>
+                    <span><button class="action delete">删除</button></span><span><button class="action detail" v-on:click="item_detail(index)">详情</button></span>
+                </div>
+            </div>
+
+        </div>
+        <div class="task-detail-mask" v-show="see" v-on:click.self="see = !see">
+            <div class="task-detail">
+                <div class="content">
+                    <h3 contenteditable="false"></h3></div>
+                <div>
+                    <div class="descption">
+                        <textarea name="id="></textarea>
+                    </div>
+                </div>
+                <div class="remaind">
+                    <input class="datetime" type="text" value="">
+                    <button class="submit">提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <audio src="http://music.163.com/song/media/outer/url?id=4989687.mp3" loop="true"></audio>
+    <script src="./script/jquery.min.js"></script>
+    <script src="./script/store.legacy.min.js"></script>
+    <script src="./script/jquery.datetimepicker.full.min.js"></script>
+    <script>
+    	var task_list = [];
+        var vm = new Vue({
+        	el: '#app',
+        	data:{
+        		message: '',
+        		content: task_list,
+        		see: false
+        	},
+
+        	methods:{
+        		init (){
+        			task_list = store.get('task_list') || [{"content":"曾经沧海难为水","desc":"曾经沧海难为水 除却巫山不是云\n有情谁信道无缘 无缘却见梦中人","date":"2017/10/28 13:38"}];
+        			if (task_list.length) {
+        				this.content = task_list;
+        			}
+        			// this.task_remind_check();
+        		},
+        		sure (e){
+        			let new_task = {};
+        			new_task.content =  this.message
+        			if(!new_task.content) return ;
+        			task_list.push(new_task);
+        			this.content = task_list;
+        			store.set('task_list',task_list);
+        			// reload_list();
+        			this.message = ''; //清空message
+        		},
+        		task_remind_check (){
+        			console.log('task_remind_check');
+        		},
+        		item_detail (i){
+        			this.see = !this.see;
+        			let data = task_list[i];
+        			let taskDetail = document.querySelector('.task-detail');
+        			let detail_title = taskDetail.querySelector('h3');
+        			let descption = taskDetail.querySelector('.descption textarea');
+        			let date = taskDetail.querySelector('.remaind input');
+        			let btn = taskDetail.querySelector('.remaind button');
+
+        			detail_title.textContent = data.content;
+        			descption.value = data.desc || '';
+        			date.value = data.date || '';
+        			$('.datetime').datetimepicker();
+
+        			btn.addEventListener('click',function(){
+        				var data_detail = {};
+        				var data_seconds;
+        				data_detail.content = document.querySelector('.task-detail .content').querySelector('h3').textContent;
+        				data_detail.desc = document.querySelector('.task-detail .descption').querySelector('textarea').value;
+        				data_detail.date = document.querySelector('.task-detail .remaind').querySelector('input').value;
+        				data_seconds = new Date(data_detail.date).getTime();
+        				if (data_detail.date.trim() !== '' && (Date.now() - data_seconds >1) ){
+        					alert('设置时间小于当前时间,请重新设置'); return;
+        				}
+        				task_list[i] = $.extend({},task_list[i],data_detail);
+        				store.set('task_list',task_list);
+        				$('.task-detail-mask').trigger('click');
+        			})
+
+        		}
+        	},
+
+
+
+        	mounted (){
+        		this.init();
+        	}
+
+        })
+
+    </script>
+</body>
+
+</html>
