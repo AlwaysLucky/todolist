@@ -26,7 +26,7 @@
                     <span><input type="checkbox" class="complete"></span><span class="content">{{item.content}}</span>
                 </div>
                 <div>
-                    <span><button class="action delete">删除</button></span><span><button class="action detail" v-on:click="item_detail(index)">详情</button></span>
+                    <span><button class="action delete">删除</button></span><span><button class="action detail" v-on:click.self="item_detail(index)">详情</button></span>
                 </div>
             </div>
 
@@ -42,7 +42,7 @@
                 </div>
                 <div class="remaind">
                     <input class="datetime" type="text" value="">
-                    <button class="submit">提交</button>
+                    <button class="submit" v-on:click.self="submit">提交</button>
                 </div>
             </div>
         </div>
@@ -79,6 +79,21 @@
         			// reload_list();
         			this.message = ''; //清空message
         		},
+        		submit (){
+        			var data_detail = {};
+    				var data_seconds;
+    				var i = document.querySelector('.task-detail .remaind button').getAttribute('data-id');
+    				data_detail.content = document.querySelector('.task-detail .content h3').textContent;
+    				data_detail.desc = document.querySelector('.task-detail .descption textarea').value;
+    				data_detail.date = document.querySelector('.task-detail .remaind input').value;
+    				data_seconds = new Date(data_detail.date).getTime();
+    				if (data_detail.date.trim() !== '' && (Date.now() - data_seconds >1) ){
+    					alert('设置时间小于当前时间,请重新设置'); return;
+    				}
+    				task_list.splice(i,1,data_detail);
+    				store.set('task_list',task_list);
+    				this.see = !this.see;
+        		},
         		task_remind_check (){
         			console.log('task_remind_check');
         		},
@@ -94,23 +109,7 @@
         			detail_title.textContent = data.content;
         			descption.value = data.desc || '';
         			date.value = data.date || '';
-        			$('.datetime').datetimepicker();
-
-        			btn.addEventListener('click',function(){
-        				var data_detail = {};
-        				var data_seconds;
-        				data_detail.content = document.querySelector('.task-detail .content').querySelector('h3').textContent;
-        				data_detail.desc = document.querySelector('.task-detail .descption').querySelector('textarea').value;
-        				data_detail.date = document.querySelector('.task-detail .remaind').querySelector('input').value;
-        				data_seconds = new Date(data_detail.date).getTime();
-        				if (data_detail.date.trim() !== '' && (Date.now() - data_seconds >1) ){
-        					alert('设置时间小于当前时间,请重新设置'); return;
-        				}
-        				task_list[i] = $.extend({},task_list[i],data_detail);
-        				store.set('task_list',task_list);
-        				$('.task-detail-mask').trigger('click');
-        			})
-
+        			btn.setAttribute('data-id',i); //设置表示 选中的第几个
         		}
         	},
 
@@ -120,6 +119,10 @@
         		this.init();
         	}
 
+        });
+
+        $(function(){
+    			$('.datetime').datetimepicker();
         })
 
     </script>
