@@ -15,7 +15,7 @@
         <span>又要接单啦</span><button>确定</button>
     </div> -->
     <div class="container" id="app">
-        <h1><!-- 我的清单列表 --></h1>
+        <h1>我的清单列表</h1>
         <div class="task-add">
             <input type="text" name="content" placeholder="中午吃什么" v-model="message" v-on:keyup.enter="sure" autofocus="" complete="off">
             <button v-on:click.prevent="sure">确定</button>
@@ -32,7 +32,7 @@
                     <span><button class="action delete" v-on:click.self="item_delete(index)">删除</button></span><span><button class="action detail" v-on:click.self="item_detail(index)">详情</button></span>
                 </div>
             </div>
-            <div class="task-item" v-for="(item,index) in content" :data-id="index" v-if="item.complete == true">
+            <div class="task-item complete" v-for="(item,index) in content" :data-id="index" v-if="item.complete == true">
                 <div>
                     <span>
                     	<input type="checkbox" class="complete" checked v-on:click="isComplete(index,$event)">
@@ -65,7 +65,7 @@
     <script src="./script/store.legacy.min.js"></script>
     <script src="./script/jquery.datetimepicker.full.min.js"></script>
     <script>
-    var task_list = [];
+    var task_list = store.get('task_list') || [{ "content": "曾经沧海难为水", "desc": "曾经沧海难为水 除却巫山不是云\n有情谁信道无缘 无缘却见梦中人", "date": "2017/10/28 13:38" }];
     var vm = new Vue({
         el: '#app',
         data: {
@@ -76,10 +76,10 @@
 
         methods: {
             init() {
-                task_list = store.get('task_list') || [{ "content": "曾经沧海难为水", "desc": "曾经沧海难为水 除却巫山不是云\n有情谁信道无缘 无缘却见梦中人", "date": "2017/10/28 13:38" }];
-                if (task_list.length) {
-                    this.content = task_list;
-                }
+                // task_list = store.get('task_list') || [{ "content": "曾经沧海难为水", "desc": "曾经沧海难为水 除却巫山不是云\n有情谁信道无缘 无缘却见梦中人", "date": "2017/10/28 13:38" }];
+                // if (task_list.length) {
+                //     this.content = task_list;
+                // }
                 // this.task_remind_check();
             },
             sure(e) {
@@ -109,7 +109,7 @@
                 this.see = !this.see;
             },
             task_remind_check() {
-                console.log('task_remind_check');
+                // console.log('task_remind_check');
             },
             item_detail(i) {
                 this.see = !this.see;
@@ -128,6 +128,7 @@
             item_delete(i) {
                 let tmp = confirm('确定删除吗?');
                 tmp ? task_list.splice(i, 1) : null;
+                store.set('task_list',task_list);
             },
             isComplete(i, e) {
                 var checked = e.target.checked;
@@ -136,8 +137,13 @@
                 store.set('task_list', task_list);
             }
         },
+        computed:{
+        	contentReverse(){
+        		// return this.content.reverse();
+        	}
+        },
         mounted() {
-            this.init();
+            // this.init();
         }
 
     });

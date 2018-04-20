@@ -48,6 +48,7 @@ button {
 }
 
 .task-item {
+    position: relative;
     display: flex;
     justify-content: space-between;
     background: #fff;
@@ -59,6 +60,19 @@ button {
     border-radius: 4px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, .4);
 }
+
+.task-item.complete:after{
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    width: 80%;
+    height: 100%;
+    content:'';
+    display: 'inline-block';
+    border-top: 1px solid #000;
+    /*z-index: -1;*/
+}
+
 
 .task-item div {
     display: inline-flex;
