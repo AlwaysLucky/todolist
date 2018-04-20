@@ -27,6 +27,7 @@ h1 {
 
 input {
     flex-grow: 1;
+    border: 0;
 }
 
 button {
@@ -76,7 +77,6 @@ button {
 input[type=text],
 input[type=date],
 textarea {
-    border: 0;
     padding: 10px;
     border-radius: 4px;
     -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, .2);
@@ -125,7 +125,9 @@ textarea {
     display: inline-flex;
     justify-content: space-between;
 }
-
+.remaind input{
+    border: 1px solid;
+}
 .task-mind-mask {
     background: orange;
     padding: 10px;
