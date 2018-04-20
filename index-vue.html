@@ -21,15 +21,28 @@
             <button v-on:click.prevent="sure">确定</button>
         </div>
         <div class="task-list">
-            <div class="task-item" v-for="(item,index) in content":data-id="index">
+            <div class="task-item" v-for="(item,index) in content" :data-id="index" v-if="item.complete == false || item.complete == undefined ">
                 <div>
-                    <span><input type="checkbox" class="complete"></span><span class="content">{{item.content}}</span>
+                    <span>
+			        	<input type="checkbox" class="complete" v-on:click="isComplete(index,$event)">
+			        </span>
+                    <span class="content">{{item.content}}</span>
                 </div>
                 <div>
-                    <span><button class="action delete">删除</button></span><span><button class="action detail" v-on:click.self="item_detail(index)">详情</button></span>
+                    <span><button class="action delete" v-on:click.self="item_delete(index)">删除</button></span><span><button class="action detail" v-on:click.self="item_detail(index)">详情</button></span>
                 </div>
             </div>
-
+            <div class="task-item" v-for="(item,index) in content" :data-id="index" v-if="item.complete == true">
+                <div>
+                    <span>
+                    	<input type="checkbox" class="complete" checked v-on:click="isComplete(index,$event)">
+                    </span>
+                    <span class="content">{{item.content}}</span>
+                </div>
+                <div>
+                    <span><button class="action delete" v-on:click.self="item_delete(index)">删除</button></span><span><button class="action detail" v-on:click.self="item_detail(index)">详情</button></span>
+                </div>
+            </div>
         </div>
         <div class="task-detail-mask" v-show="see" v-on:click.self="see = !see">
             <div class="task-detail">
@@ -52,79 +65,86 @@
     <script src="./script/store.legacy.min.js"></script>
     <script src="./script/jquery.datetimepicker.full.min.js"></script>
     <script>
-    	var task_list = [];
-        var vm = new Vue({
-        	el: '#app',
-        	data:{
-        		message: '',
-        		content: task_list,
-        		see: false
-        	},
+    var task_list = [];
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            message: '',
+            content: task_list,
+            see: false
+        },
 
-        	methods:{
-        		init (){
-        			task_list = store.get('task_list') || [{"content":"曾经沧海难为水","desc":"曾经沧海难为水 除却巫山不是云\n有情谁信道无缘 无缘却见梦中人","date":"2017/10/28 13:38"}];
-        			if (task_list.length) {
-        				this.content = task_list;
-        			}
-        			// this.task_remind_check();
-        		},
-        		sure (e){
-        			let new_task = {};
-        			new_task.content =  this.message
-        			if(!new_task.content) return ;
-        			task_list.push(new_task);
-        			this.content = task_list;
-        			store.set('task_list',task_list);
-        			// reload_list();
-        			this.message = ''; //清空message
-        		},
-        		submit (){
-        			var data_detail = {};
-    				var data_seconds;
-    				var i = document.querySelector('.task-detail .remaind button').getAttribute('data-id');
-    				data_detail.content = document.querySelector('.task-detail .content h3').textContent;
-    				data_detail.desc = document.querySelector('.task-detail .descption textarea').value;
-    				data_detail.date = document.querySelector('.task-detail .remaind input').value;
-    				data_seconds = new Date(data_detail.date).getTime();
-    				if (data_detail.date.trim() !== '' && (Date.now() - data_seconds >1) ){
-    					alert('设置时间小于当前时间,请重新设置'); return;
-    				}
-    				task_list.splice(i,1,data_detail);
-    				store.set('task_list',task_list);
-    				this.see = !this.see;
-        		},
-        		task_remind_check (){
-        			console.log('task_remind_check');
-        		},
-        		item_detail (i){
-        			this.see = !this.see;
-        			let data = task_list[i];
-        			let taskDetail = document.querySelector('.task-detail');
-        			let detail_title = taskDetail.querySelector('h3');
-        			let descption = taskDetail.querySelector('.descption textarea');
-        			let date = taskDetail.querySelector('.remaind input');
-        			let btn = taskDetail.querySelector('.remaind button');
+        methods: {
+            init() {
+                task_list = store.get('task_list') || [{ "content": "曾经沧海难为水", "desc": "曾经沧海难为水 除却巫山不是云\n有情谁信道无缘 无缘却见梦中人", "date": "2017/10/28 13:38" }];
+                if (task_list.length) {
+                    this.content = task_list;
+                }
+                // this.task_remind_check();
+            },
+            sure(e) {
+                let new_task = {};
+                new_task.content = this.message
+                if (!new_task.content) return;
+                task_list.push(new_task);
+                this.content = task_list;
+                store.set('task_list', task_list);
+                // reload_list();
+                this.message = ''; //清空message
+            },
+            submit(e) {
+                var data_detail = {};
+                var data_seconds;
+                var i = e.target.getAttribute('data-id');
+                data_detail.content = document.querySelector('.task-detail .content h3').textContent;
+                data_detail.desc = document.querySelector('.task-detail .descption textarea').value;
+                data_detail.date = e.target.previousElementSibling.value;
+                data_seconds = new Date(data_detail.date).getTime();
+                if (data_detail.date.trim() !== '' && (Date.now() - data_seconds > 1)) {
+                    alert('设置时间小于当前时间,请重新设置');
+                    return;
+                }
+                task_list.splice(i, 1, data_detail);
+                store.set('task_list', task_list);
+                this.see = !this.see;
+            },
+            task_remind_check() {
+                console.log('task_remind_check');
+            },
+            item_detail(i) {
+                this.see = !this.see;
+                let data = task_list[i];
+                let taskDetail = document.querySelector('.task-detail');
+                let detail_title = taskDetail.querySelector('h3');
+                let descption = taskDetail.querySelector('.descption textarea');
+                let date = taskDetail.querySelector('.remaind input');
+                let btn = taskDetail.querySelector('.remaind button');
 
-        			detail_title.textContent = data.content;
-        			descption.value = data.desc || '';
-        			date.value = data.date || '';
-        			btn.setAttribute('data-id',i); //设置表示 选中的第几个
-        		}
-        	},
+                detail_title.textContent = data.content;
+                descption.value = data.desc || '';
+                date.value = data.date || '';
+                btn.setAttribute('data-id', i); //设置表示 选中的第几个
+            },
+            item_delete(i) {
+                let tmp = confirm('确定删除吗?');
+                tmp ? task_list.splice(i, 1) : null;
+            },
+            isComplete(i, e) {
+                var checked = e.target.checked;
+                var obj = Object.assign({}, task_list[i], { complete: checked }); //es6 对象合并方法
+                task_list.splice(i, 1, obj);
+                store.set('task_list', task_list);
+            }
+        },
+        mounted() {
+            this.init();
+        }
 
+    });
 
-
-        	mounted (){
-        		this.init();
-        	}
-
-        });
-
-        $(function(){
-    			$('.datetime').datetimepicker();
-        })
-
+    $(function() {
+        $('.datetime').datetimepicker();
+    })
     </script>
 </body>
 
