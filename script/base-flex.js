@@ -68,8 +68,8 @@
 		if (!data || (!i && i !==0)) {return}
 		var complete = data.complete?'checked':'';
 		var html = '<div class="task-item" data-id='+i+' >'
-				+		'<span><input type="checkbox" class=complete '+complete+'></span>'
-				+		'<span class=content>'+data.content+'</span>'
+				+		'<div><span><input type="checkbox" class=complete '+complete+'></span>'
+				+		'<span class=content>'+data.content+'</span></div>'
 				+		'<div>'
 				+			'<span><button class=\'action delete\'>删除</button></span>'
 				+			'<span><button class=\'action detail\'>详情</button></span>'

@@ -1,0 +1,139 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>toDoList</title>
+    <link rel="stylesheet" href="./style/jquery.datetimepicker.min.css">
+    <link rel="stylesheet" href="./style/normalize.css">
+    <link rel="stylesheet" href="./style/base-flex.css">
+    <script src="script/vue.min.js"></script>
+</head>
+
+<body>
+    <!-- <div class="task-mind-mask">
+        <span>又要接单啦</span><button>确定</button>
+    </div> -->
+    <div class="container" id="app">
+        <h1>我的清单列表</h1>
+        <div class="task-add">
+            <input type="text" name="content" placeholder="中午吃什么" v-model="message" v-on:keyup.enter="sure" autofocus="" complete="off">
+            <button v-on:click.prevent="sure">确定</button>
+        </div>
+        <div class="task-list">
+            <div class="task-item" v-for="(item,index) in content" :data-id="index" v-if="item.complete == false || item.complete == undefined ">
+                <div>
+                    <span>
+			        	<input type="checkbox" class="complete" v-on:click="isComplete(index,$event)">
+			        </span>
+                    <span class="content">{{item.content}}</span>
+                </div>
+                <div>
+                    <span><button class="action delete" v-on:click.self="item_delete(index)">删除</button></span><span><button class="action detail" v-on:click.self="item_detail(index)">详情</button></span>
+                </div>
+            </div>
+            <div class="task-item complete" v-for="(item,index) in content" :data-id="index" v-if="item.complete == true">
+                <div>
+                    <span>
+                    	<input type="checkbox" class="complete" checked v-on:click="isComplete(index,$event)">
+                    </span>
+                    <span class="content">{{item.content}}</span>
+                </div>
+                <div>
+                    <span><button class="action delete" v-on:click.self="item_delete(index)">删除</button></span><span><button class="action detail" v-on:click.self="item_detail(index)">详情</button></span>
+                </div>
+            </div>
+        </div>
+        <div class="task-detail-mask" v-show="see" v-on:click.self="see = !see">
+            <div class="task-detail">
+                <div class="content">
+                    <h3 contenteditable="false"></h3></div>
+                <div>
+                    <div class="descption">
+                        <textarea name="id="></textarea>
+                    </div>
+                </div>
+                <div class="remaind">
+                    <input class="datetime" type="text" value="">
+                    <button class="submit" v-on:click.self="submit">提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <audio src="http://music.163.com/song/media/outer/url?id=4989687.mp3" loop="true"></audio>
+    <script src="./script/jquery.min.js"></script>
+    <script src="./script/store.legacy.min.js"></script>
+    <script src="./script/jquery.datetimepicker.full.min.js"></script>
+    <script>
+    var task_list = store.get('task_list') || [{ "content": "曾经沧海难为水", "desc": "曾经沧海难为水 除却巫山不是云\n有情谁信道无缘 无缘却见梦中人", "date": "2017/10/28 13:38" }];
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            message: '',
+            content: task_list,
+            see: false
+        },
+
+        methods: {
+            sure(e) {
+                let new_task = {};
+                new_task.content = this.message
+                if (!new_task.content) return;
+                task_list.push(new_task);
+                this.content = task_list;
+                store.set('task_list', task_list);
+                this.message = ''; //清空message
+            },
+            submit(e) {
+                var data_detail = {};
+                var data_seconds;
+                var i = e.target.getAttribute('data-id');
+                data_detail.content = document.querySelector('.task-detail .content h3').textContent;
+                data_detail.desc = document.querySelector('.task-detail .descption textarea').value;
+                data_detail.date = e.target.previousElementSibling.value;
+                data_seconds = new Date(data_detail.date).getTime();
+                if (data_detail.date.trim() !== '' && (Date.now() - data_seconds > 1)) {
+                    alert('设置时间小于当前时间,请重新设置');
+                    return;
+                }
+                task_list.splice(i, 1, data_detail);
+                store.set('task_list', task_list);
+                this.see = !this.see;
+            },
+            item_detail(i) {
+                this.see = !this.see;
+                let data = task_list[i];
+                let taskDetail = document.querySelector('.task-detail');
+                let detail_title = taskDetail.querySelector('h3');
+                let descption = taskDetail.querySelector('.descption textarea');
+                let date = taskDetail.querySelector('.remaind input');
+                let btn = taskDetail.querySelector('.remaind button');
+
+                detail_title.textContent = data.content;
+                descption.value = data.desc || '';
+                date.value = data.date || '';
+                btn.setAttribute('data-id', i); //设置表示 选中的第几个
+            },
+            item_delete(i) {
+                let tmp = confirm('确定删除吗?');
+                tmp ? task_list.splice(i, 1) : null;
+                store.set('task_list',task_list);
+            },
+            isComplete(i, e) {
+                var checked = e.target.checked;
+                var obj = Object.assign({}, task_list[i], { complete: checked }); //es6 对象合并方法
+                task_list.splice(i, 1, obj);
+                store.set('task_list', task_list);
+            }
+        }
+        
+
+    });
+
+    $(function() {
+        $('.datetime').datetimepicker();
+    })
+    </script>
+</body>
+
+</html>

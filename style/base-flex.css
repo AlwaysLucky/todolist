@@ -19,25 +19,80 @@ h1 {
     text-align: center;
 }
 
-.task-list {
-    margin: 10px 0;
+.task-add {
+    -webkit-display: flex;
+    display: flex;
+    justify-content: space-between;
 }
 
-input,
-.task-item,
-button,
-.task-detail-mask {
+input {
+    flex-grow: 1;
     border: 0;
-    border-radius: 3px;
+}
+
+button {
+    border: 0;
+    width: 14%;
+    min-width: 44px;
+    margin-left: 1%;
+    background: #46b1e4;
+    border-radius: 4px;
+    cursor: pointer
+}
+
+.action {
+    width: auto;
+    margin: 0 10px;
+    padding: 8px 10px;
+    font-size: 90%;
+}
+
+.task-item {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    background: #fff;
+    color: #333;
+    cursor: pointer;
+    /*line-height: 36px;*/
+    margin-bottom: 2px;
     padding: 10px;
-    display: inline-block;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .4);
+}
+
+.task-item.complete:after{
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    width: 80%;
+    height: 100%;
+    content:'';
+    display: 'inline-block';
+    border-top: 1px solid #000;
+    /*z-index: -1;*/
+}
+
+
+.task-item div {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.task-item .content {
+    margin: 0 10px;
+}
+
+.task-list {
+    margin: 10px 0;
 }
 
 input[type=text],
 input[type=date],
 textarea {
-    width: calc(100% - 16%);
-    margin-right: 1%;
+    padding: 10px;
+    border-radius: 4px;
     -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, .2);
     box-shadow: inset 0 1px 4px rgba(0, 0, 0, .2);
 }
@@ -48,72 +103,24 @@ textarea {
     resize: none
 }
 
-button {
-    background: #46b1e4;
-    cursor: pointer
-}
-
-.action {
-    margin: 0 10px;
-    padding: 8px 10px;
-    font-size: 90%
-}
-
-.task-add button,
-.remaind button {
-    width: 15%;
-    min-width: 44px
-}
-
-.remaind button {
-    padding: 10px 0;
-}
-
-.task-add button:hover {
-    background: #308bb7
-}
-
-.task-item {
-    display: block;
-    background: #fff;
-    color: #333;
-    margin-bottom: 2px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, .4);
-    cursor: pointer;
-    overflow: auto;
-    line-height: 36px;
-    /*文字垂直居中 根据自己实际行高决定*/
-}
-
-.task-item .content {
-    margin: 0 10px;
-}
-
-.task-item div {
-    display: inline-block;
-    max-width: 100%;
-    float: right;
-}
-
-.task-item:hover {
-    background: #ddd;
-}
-
 .task-detail-mask,
 .task-detail {
     position: fixed;
 }
 
 .task-detail {
+    display: flex;
+    flex-direction: column;
+
     width: 50%;
     background: #fff;
     padding: 10px;
     color: #333;
-
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
 
 .task-detail>* {
     margin-bottom: 10px;
@@ -125,9 +132,16 @@ button {
     top: 0;
     bottom: 0;
     background: rgba(30, 30, 30, .5);
-    display: none;
+    /*display: none;*/
 }
 
+.remaind {
+    display: inline-flex;
+    justify-content: space-between;
+}
+.remaind input{
+    border: 1px solid;
+}
 .task-mind-mask {
     background: orange;
     padding: 10px;
@@ -159,7 +173,7 @@ button {
         margin-left: 10px
     }
     .task-detail {
-        width: 90% !important
+        width: 90%
     }
     .task-item {
         -webkit-appearance: none;
