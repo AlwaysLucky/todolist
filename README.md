@@ -39,6 +39,3 @@ jQuery out了? No No No 其实现在jQuery依然是前端最火的框架之一,�
 * 采用原生alert 没有重写
 * 移动端简单的适配 只测试了android , ios 可能会有问题  待后续优化
 * 兼容性待测 只用了自己的手机和电脑测试  待后续优化 如有问题大家可一起探讨
-=======
-**访问:**   [http://diaosi19.com/todolist](http://diaosi19.com/todolist)  
-![todolist](img/visit-todo.png)
