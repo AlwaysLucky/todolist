@@ -1,5 +1,4 @@
 # todolist
-<<<<<<< HEAD
 前端小白的入门级实战,得益于慕课网表严肃老师的实战课程(6小时 jQuery开发一个前端应用)
 
 ## 说明
@@ -43,4 +42,3 @@ jQuery out了? No No No 其实现在jQuery依然是前端最火的框架之一,�
 =======
 **访问:**   [http://diaosi19.com/todolist](http://diaosi19.com/todolist)  
 ![todolist](img/visit-todo.png)
->>>>>>> 082c347c2ae8f279b47eaafd9684159fdf942ae9
